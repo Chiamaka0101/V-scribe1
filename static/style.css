@@ -1,0 +1,404 @@
+/* ==============================
+   RESET & BASE
+============================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --purple:     #6a5acd;
+    --purple-lt:  #7b68ee;
+    --purple-bg:  #f0eeff;
+    --success:    #22c55e;
+    --error:      #ef4444;
+    --info:       #3b82f6;
+    --text:       #1e1e2e;
+    --muted:      #6b7280;
+    --border:     #e2e8f0;
+    --bg:         #f5f6fa;
+    --card:       #ffffff;
+    --radius:     12px;
+    --shadow:     0 4px 24px rgba(0,0,0,0.09);
+    --transition: 0.2s ease;
+}
+
+body {
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px 60px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ==============================
+   CONTAINER
+============================== */
+.container {
+    width: 100%;
+    max-width: 680px;
+    background: var(--card);
+    padding: 36px 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* ==============================
+   HEADER
+============================== */
+.header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.subtext {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+/* ==============================
+   STATUS BADGE
+============================== */
+.status-badge {
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    text-align: center;
+    transition: opacity var(--transition);
+}
+
+.status-badge.hidden   { display: none; }
+.status-info    { background: #eff6ff; color: var(--info); border: 1px solid #bfdbfe; }
+.status-success { background: #f0fdf4; color: #16a34a;     border: 1px solid #bbf7d0; }
+.status-error   { background: #fef2f2; color: var(--error); border: 1px solid #fecaca; }
+
+/* ==============================
+   RECORD SECTION
+============================== */
+.record-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 20px;
+}
+
+.record-btn {
+    background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+    color: white;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 4px 14px rgba(106,90,205,0.35);
+    letter-spacing: 0.3px;
+}
+
+.record-btn:hover:not(:disabled) {
+    opacity: 0.92;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(106,90,205,0.4);
+}
+
+.record-btn:active:not(:disabled) { transform: translateY(0); }
+.record-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Pulsing red ring while recording */
+.record-btn.recording {
+    background: linear-gradient(135deg, #dc2626, #f87171);
+    box-shadow: 0 0 0 0 rgba(220,38,38,0.5);
+    animation: pulse-ring 1.2s infinite;
+}
+
+@keyframes pulse-ring {
+    0%   { box-shadow: 0 0 0 0 rgba(220,38,38,0.5); }
+    70%  { box-shadow: 0 0 0 10px rgba(220,38,38,0); }
+    100% { box-shadow: 0 0 0 0 rgba(220,38,38,0); }
+}
+
+.record-timer {
+    font-size: 14px;
+    color: var(--error);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.record-timer.hidden { display: none; }
+
+/* ==============================
+   DIVIDER
+============================== */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 4px 0 20px;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ==============================
+   UPLOAD BOX
+============================== */
+.upload-box {
+    border: 2px dashed #c4b5fd;
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+    cursor: pointer;
+    background: var(--purple-bg);
+    transition: background var(--transition), border-color var(--transition);
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.upload-box:hover, .upload-box.drag-over {
+    background: #e5e0ff;
+    border-color: var(--purple);
+}
+
+.upload-box p {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--purple);
+}
+
+.upload-box small {
+    color: var(--muted);
+    font-size: 12px;
+    display: block;
+}
+
+.upload-box .file-types {
+    font-size: 11px;
+    color: #a78bfa;
+    margin-top: 2px;
+}
+
+/* ==============================
+   SECTION TITLES
+============================== */
+.section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 20px 0 10px;
+}
+
+/* ==============================
+   AUDIO PLAYER
+============================== */
+audio {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    accent-color: var(--purple);
+}
+
+/* ==============================
+   TRANSCRIBE SECTION
+============================== */
+.transcribe-section {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 4px;
+}
+
+/* ==============================
+   PROGRESS BAR
+============================== */
+.progress-wrap {
+    margin: 12px 0 4px;
+    text-align: center;
+}
+
+.progress-wrap.hidden { display: none; }
+
+.progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--purple), var(--purple-lt));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+.progress-label {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ==============================
+   TEXTAREA
+============================== */
+textarea {
+    width: 100%;
+    height: 160px;
+    padding: 16px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    resize: vertical;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    background: #fafafa;
+    transition: border-color var(--transition);
+    outline: none;
+    font-family: inherit;
+}
+
+textarea:not([readonly]) {
+    background: white;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(106,90,205,0.12);
+}
+
+textarea:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(106,90,205,0.12);
+}
+
+/* ==============================
+   WORD COUNT
+============================== */
+.word-count {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+/* ==============================
+   ACTION BUTTONS
+============================== */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.actions button {
+    flex: 1;
+    min-width: 90px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.actions button:hover {
+    background: var(--purple-bg);
+    border-color: #c4b5fd;
+    color: var(--purple);
+}
+
+.actions button.active {
+    background: var(--purple-bg);
+    border-color: var(--purple);
+    color: var(--purple);
+}
+
+/* ==============================
+   EXPORT BUTTONS
+============================== */
+.export {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.export button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--purple), var(--purple-lt));
+    color: white;
+    transition: opacity var(--transition), transform var(--transition);
+    box-shadow: 0 3px 10px rgba(106,90,205,0.3);
+}
+
+.export button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* ==============================
+   FOOTER
+============================== */
+.footer {
+    text-align: center;
+    font-size: 11px;
+    color: #c4b5fd;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+@media (max-width: 480px) {
+    body { padding: 16px 8px 40px; }
+    .container { padding: 24px 18px; }
+    .header h1 { font-size: 24px; }
+    .record-btn { padding: 13px 28px; font-size: 14px; }
+    .export { flex-direction: column; }
+    .export button { width: 100%; }
+}

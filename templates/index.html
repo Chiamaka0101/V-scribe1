@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VocalScribe</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🎙 VocalScribe</h1>
+        <p class="subtitle">Speak or Upload Audio with Ease</p>
+        <p class="subtext">Turn your voice into text in seconds</p>
+    </div>
+
+    <!-- STATUS BADGE -->
+    <div id="statusBadge" class="status-badge hidden"></div>
+
+    <!-- RECORD BUTTON -->
+    <div class="record-section">
+        <button id="recordBtn" class="record-btn">
+            🎙 Start Recording
+        </button>
+        <div id="recordTimer" class="record-timer hidden">⏱ <span id="timerDisplay">0:00</span></div>
+    </div>
+
+    <!-- OR DIVIDER -->
+    <div class="divider">
+        <hr><span>OR</span><hr>
+    </div>
+
+    <!-- UPLOAD AREA -->
+    <div id="uploadArea" class="upload-box">
+        <p>📁 Upload Audio File</p>
+        <small>Drag &amp; drop or click to browse</small>
+        <small class="file-types">MP3 · WAV · M4A · MP4 · WEBM · OGG (max 25 MB)</small>
+        <input type="file" id="fileInput" hidden accept=".mp3,.wav,.m4a,.mp4,.webm,.ogg">
+    </div>
+
+    <!-- AUDIO PREVIEW -->
+    <div class="section-title">Audio Preview</div>
+    <audio id="audioPlayer" controls></audio>
+
+    <!-- TRANSCRIBE BUTTON -->
+    <div class="transcribe-section">
+        <button id="transcribeBtn" class="record-btn">
+            ✨ Transcribe Audio
+        </button>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div id="progressWrap" class="progress-wrap hidden">
+        <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <p class="progress-label">Transcribing, please wait…</p>
+    </div>
+
+    <!-- TRANSCRIPTION OUTPUT -->
+    <div class="section-title">Transcription Output</div>
+    <textarea id="transcriptionText" placeholder="Your transcribed text appears here…" readonly></textarea>
+
+    <!-- WORD COUNT -->
+    <div id="wordCount" class="word-count">0 words · 0 characters</div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="actions">
+        <button id="editBtn" title="Toggle editing">✏️ Edit</button>
+        <button id="copyBtn" title="Copy to clipboard">📋 Copy</button>
+        <button id="clearBtn" title="Clear transcript">🗑 Clear</button>
+    </div>
+
+    <!-- EXPORT -->
+    <div class="section-title">Export Options</div>
+    <div class="export">
+        <button id="downloadPDF">📄 Download PDF</button>
+        <button id="downloadTXT">📝 Download TXT</button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">Powered by OpenAI Whisper · VocalScribe</div>
+
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
