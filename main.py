@@ -5,7 +5,7 @@ from fastapi import FastAPI, File, UploadFile, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from openai import OpenAI
+from groq import Groq
 
 # -----------------------------------------------
 # App Setup
@@ -15,8 +15,8 @@ app = FastAPI(title="VocalScribe")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# OpenAI client — reads OPENAI_API_KEY from environment
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Groq client — reads GROQ_API_KEY from environment
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 ALLOWED_EXTENSIONS = {".mp3", ".wav", ".m4a", ".mp4", ".webm", ".ogg"}
 MAX_FILE_SIZE_MB = 25  # Whisper API limit
@@ -60,7 +60,7 @@ async def transcribe(file: UploadFile = File(...)):
         # Call OpenAI Whisper API
         with open(tmp_path, "rb") as audio:
             transcript = client.audio.transcriptions.create(
-                model="whisper-1",
+                model="whisper-large-v3",
                 file=audio,
                 response_format="text"
             )
